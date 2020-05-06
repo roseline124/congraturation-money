@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import { questions } from './constants'
 
 function App() {
+  const [seedMoney, setSeedMoney] = useState(5)
+  const [questionNumber, setQuestionNumber] = useState(1)
+
+  const question = questions[questionNumber]
+  const handleClick = (answer) => {
+    if (answer) {
+      setSeedMoney(seedMoney + question.yesCost)
+    }
+
+    const questionNumber = answer ? question.yesQuestion : question.noQuestion
+    setQuestionNumber(questionNumber)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <p>{seedMoney}만 원</p>
+      <p>
+        Q{questionNumber}. {question.statement}
+      </p>
+      <button onClick={() => handleClick(true)}>yes</button>
+      <button onClick={() => handleClick(false)}>no</button>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
