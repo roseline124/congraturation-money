@@ -1,41 +1,36 @@
-import React, { useState } from 'react'
-import { Container, Typography } from '@material-ui/core'
+import React from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Container, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { questions } from './constants'
+import QuestionScreen from './screens/QuestionScreen'
+import IndexScreen from './screens/IndexScreen'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 30,
+    height: '100%',
+  },
   container: {
-    paddingTop: 30,
-    height: '100vh',
-    border: '2px solid blue',
-    // backgroundColor: theme.palette.primary.main,
+    marginTop: 30,
+    height: 'calc(100vh - 120px)',
   },
 }))
 
 function App() {
   const classes = useStyles()
-  const [seedMoney, setSeedMoney] = useState(5)
-  const [questionNumber, setQuestionNumber] = useState(1)
-
-  const question = questions[questionNumber]
-  const handleClick = (answer) => {
-    if (answer) {
-      setSeedMoney(seedMoney + question.yesCost)
-    }
-
-    const questionNumber = answer ? question.yesQuestion : question.noQuestion
-    setQuestionNumber(questionNumber)
-  }
 
   return (
     <Container maxWidth="lg" className={classes.container}>
-      <Typography>{seedMoney}만 원</Typography>
-      <Typography>
-        Q{questionNumber}. {question.statement}
-      </Typography>
-      <button onClick={() => handleClick(true)}>yes</button>
-      <button onClick={() => handleClick(false)}>no</button>
+      <Paper className={classes.root} elevation={3}>
+        <Router>
+          <Route path="/" exact component={IndexScreen} />
+          <Route path="/question" exact component={QuestionScreen} />
+        </Router>
+      </Paper>
     </Container>
   )
 }
