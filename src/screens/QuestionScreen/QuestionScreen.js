@@ -109,7 +109,7 @@ function QuestionScreen() {
             </Button>
           </>
         ) : (
-          <Link to={`/result?type=${currentQuestion}`}>
+          <Link to={`/result?type=${currentQuestion}&money=${seedMoney}`}>
             <Button
               className={classes.resultButton}
               variant="contained"
