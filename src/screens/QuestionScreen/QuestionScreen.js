@@ -3,7 +3,8 @@ import { Box, Button, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import LinearProgress from '@material-ui/core/LinearProgress'
 
-import { questions } from '../../constants'
+import { Questions, ResultType } from '../../constants'
+import Link from '../../components/Link'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,10 +25,11 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
   },
   question: {
-    marginTop: 30,
+    marginTop: 50,
+    fontSize: 25,
   },
   buttonWrapper: {
-    marginTop: 30,
+    marginTop: 50,
   },
   yesButton: {
     backgroundColor: theme.palette.primary.main,
@@ -35,7 +37,11 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 10,
   },
   noButton: {
-    backgroundColor: theme.palette.info.main,
+    color: 'white',
+  },
+  resultButton: {
+    padding: '10px 15px',
+    backgroundColor: theme.palette.primary.main,
     color: 'white',
   },
 }))
@@ -43,43 +49,76 @@ const useStyles = makeStyles((theme) => ({
 function QuestionScreen() {
   const classes = useStyles()
   const [seedMoney, setSeedMoney] = useState(5)
-  const [questionNumber, setQuestionNumber] = useState(1)
+  const [currentQuestion, setCurrentQuestion] = useState(1)
+  const question = Questions[currentQuestion]
+  const isQuestion =
+    currentQuestion !== ResultType.ENVELOPE &&
+    currentQuestion !== ResultType.ATTEND
 
-  const question = questions[questionNumber]
   const handleClick = (answer) => {
     if (answer) {
       setSeedMoney(seedMoney + question.yesCost)
     }
 
-    const questionNumber = answer ? question.yesQuestion : question.noQuestion
-    setQuestionNumber(questionNumber)
+    const currentQuestion = answer ? question.yesQuestion : question.noQuestion
+    setCurrentQuestion(currentQuestion)
   }
 
   return (
     <Box className={classes.root}>
-      <Box className={classes.seedMoneyWrapper}>
-        <Typography className={classes.seedMoneyIndex}>
-          {seedMoney}만 원
-        </Typography>
-        <LinearProgress
-          color="primary"
-          className={classes.linearProgress}
-          variant="determinate"
-          value={seedMoney * 10}
-        />
-      </Box>
+      {isQuestion ? (
+        <>
+          <Box className={classes.seedMoneyWrapper}>
+            <Typography className={classes.seedMoneyIndex}>
+              {seedMoney}만 원
+            </Typography>
+            <LinearProgress
+              color="primary"
+              className={classes.linearProgress}
+              variant="determinate"
+              value={seedMoney * 10}
+            />
+          </Box>
 
-      <Typography className={classes.question}>
-        Q{questionNumber}. {question.statement}
-      </Typography>
+          <Typography className={classes.question}>
+            Q{currentQuestion}. {question.statement}
+          </Typography>
+        </>
+      ) : null}
 
       <Box className={classes.buttonWrapper}>
-        <Button onClick={() => handleClick(true)} className={classes.yesButton}>
-          yes
-        </Button>
-        <Button onClick={() => handleClick(false)} className={classes.noButton}>
-          no
-        </Button>
+        {isQuestion ? (
+          <>
+            <Button
+              onClick={() => handleClick(true)}
+              className={classes.yesButton}
+              color="primary"
+              variant="contained"
+              disableElevation
+            >
+              yes
+            </Button>
+            <Button
+              onClick={() => handleClick(false)}
+              className={classes.noButton}
+              color="secondary"
+              variant="contained"
+              disableElevation
+            >
+              no
+            </Button>
+          </>
+        ) : (
+          <Link to={`/result?type=${currentQuestion}`}>
+            <Button
+              className={classes.resultButton}
+              variant="contained"
+              disableElevation
+            >
+              결과 확인
+            </Button>
+          </Link>
+        )}
       </Box>
     </Box>
   )

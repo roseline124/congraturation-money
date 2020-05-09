@@ -1,4 +1,9 @@
-export const questions = {
+export const ResultType = {
+  ATTEND: 'attend',
+  ENVELOPE: 'envelope',
+}
+
+export const Questions = {
   1: {
     yesCost: 1,
     yesQuestion: 2,
@@ -67,26 +72,20 @@ export const questions = {
   },
   12: {
     yesCost: -1,
-    yesQuestion: 15,
+    yesQuestion: ResultType.ENVELOPE,
     noQuestion: 13,
     statement: '식장이 지방이다.',
   },
   13: {
     yesCost: 2,
-    yesQuestion: 16,
+    yesQuestion: ResultType.ATTEND,
     noQuestion: 14,
     statement: '나도 2년 안에 결혼할 예정이다.',
   },
   14: {
     yesCost: 1,
-    yesQuestion: 16,
-    noQuestion: 15,
+    yesQuestion: ResultType.ATTEND,
+    noQuestion: ResultType.ENVELOPE,
     statement: '액수를 정했는데 뭔가 불안하다.',
-  },
-  15: {
-    statement: '봉투만 전해도 OK',
-  },
-  16: {
-    statement: '필참',
   },
 }

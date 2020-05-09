@@ -1,12 +1,13 @@
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { Container, Paper } from '@material-ui/core'
+import { Button, Container, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-import QuestionScreen from './screens/QuestionScreen'
 import IndexScreen from './screens/IndexScreen'
+import QuestionScreen from './screens/QuestionScreen'
+import ResultScreen from './screens/ResultScreen'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     justifyContent: 'center',
@@ -29,6 +30,7 @@ function App() {
         <Router>
           <Route path="/" exact component={IndexScreen} />
           <Route path="/question" exact component={QuestionScreen} />
+          <Route path="/result" component={ResultScreen} />
         </Router>
       </Paper>
     </Container>

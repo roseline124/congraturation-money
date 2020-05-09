@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core'
-import cyan from '@material-ui/core/colors/cyan'
+import lightBlue from '@material-ui/core/colors/lightBlue'
 import amber from '@material-ui/core/colors/amber'
 import grey from '@material-ui/core/colors/grey'
 
@@ -15,9 +15,8 @@ const theme = createMuiTheme({
         textDecoration: 'none',
       },
       contained: {
-        '&:hover': {
-          backgroundColor: amber[300],
-        },
+        fontWeight: 'bold',
+        backgroundColor: '#eee',
       },
     },
   },
@@ -43,7 +42,7 @@ const theme = createMuiTheme({
   },
   palette: {
     primary: amber,
-    secondary: cyan,
+    secondary: lightBlue,
     info: grey,
   },
 })
