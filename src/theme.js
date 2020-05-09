@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core'
-import deepOrange from '@material-ui/core/colors/deepOrange'
+import cyan from '@material-ui/core/colors/cyan'
 import amber from '@material-ui/core/colors/amber'
 import grey from '@material-ui/core/colors/grey'
 
@@ -43,7 +43,7 @@ const theme = createMuiTheme({
   },
   palette: {
     primary: amber,
-    secondary: deepOrange,
+    secondary: cyan,
     info: grey,
   },
 })
